@@ -7,6 +7,9 @@ package org.icrisat.genomicSelection;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -20,9 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
+import org.icrisat.genomicSelection.util.Util;
 
 /**
  *
@@ -38,7 +40,7 @@ public class OpenDial extends JDialog implements ActionListener {
 	ClosableTabbedPane tabbedPane;
 	JLabel lblGeno, lblPheno, lblResultDir;
 	JTextField txtGenotype, txtPhenotype, txtResultDir;
-	JButton btnGenotype, btnGenodB, btnPhenotype, btnPhenoDB, btnResultDir, btnOk, btnCancle;
+	JButton btnGenotype, btnGenoDB, btnPhenotype, btnPhenoDB, btnResultDir, btnOk, btnCancle;
 	Frame frame;
 
 	// stare region
@@ -48,9 +50,14 @@ public class OpenDial extends JDialog implements ActionListener {
 	public OpenDial(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
 		this.frame = parent;
+		setSize(new Dimension(600, 250));
 		tabbedPane = new ClosableTabbedPane();
 
-		initComponents();
+		setTitle("Load files");
+		setLocationRelativeTo(frame);
+		setLayout(new GridBagLayout());
+		createComponents();
+		addComponents();
 		setResizable(false);
 		String resultDirPath = Constant.resultdirectory; // getting the result
 															// directory path
@@ -72,6 +79,7 @@ public class OpenDial extends JDialog implements ActionListener {
 
 		// intilizing action lisener of buttons
 		btnGenotype.addActionListener(this);
+		btnGenoDB.addActionListener(this);
 		btnPhenotype.addActionListener(this);
 		btnPhenoDB.addActionListener(this);
 		btnOk.addActionListener(this);
@@ -81,7 +89,6 @@ public class OpenDial extends JDialog implements ActionListener {
 	}
 
 	@Override
-	@SuppressWarnings("empty-statement")
 	public void actionPerformed(ActionEvent evt) {
 		Object source = evt.getSource(); // gettig the source (name of the
 											// button)
@@ -257,17 +264,9 @@ public class OpenDial extends JDialog implements ActionListener {
 			if (folderchooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 				OSCheck.OSType os = OSCheck.getOperatingSystemType();
 				if ("Window".equals(os.toString())) {
-					txtResultDir.setText(folderchooser.getSelectedFile().toString() + "\\"); // getting
-																								// the
-																								// selected
-																								// directory
-																								// path
-																								// and
-																								// setting
-																								// to
-																								// resultdir
-																								// text
-																								// field
+					// Getting the selected directory path and setting to
+					// resultdir text field
+					txtResultDir.setText(folderchooser.getSelectedFile().toString() + "\\");
 					if (Files.isDirectory(Paths.get(txtResultDir.getText()))) {
 						// folder is exists
 						// donothing
@@ -287,17 +286,10 @@ public class OpenDial extends JDialog implements ActionListener {
 					}
 				}
 				if ("Linux".equals(os.toString())) {
-					txtResultDir.setText(folderchooser.getSelectedFile().toString() + "/"); // getting
-																							// the
-																							// selected
-																							// directory
-																							// path
-																							// and
-																							// setting
-																							// to
-																							// resultdir
-																							// text
-																							// field
+					// Getting the selected directory path and setting to
+					// resultdir text field
+
+					txtResultDir.setText(folderchooser.getSelectedFile().toString() + "/");
 					if (Files.isDirectory(Paths.get(txtResultDir.getText()))) {
 						// folder is exists
 					} else {
@@ -316,96 +308,107 @@ public class OpenDial extends JDialog implements ActionListener {
 					}
 				}
 				if ("MacOS".equals(os.toString())) {
-					txtResultDir.setText(folderchooser.getSelectedFile().toString() + "/"); // getting
-																							// the
-																							// selected
-																							// directory
-																							// path
-																							// and
-																							// setting
-																							// to
-																							// resultdir
-																							// text
-																							// field
+					// Getting the selected directory path and setting to
+					// resultdir text field
+					txtResultDir.setText(folderchooser.getSelectedFile().toString() + "/");
 				}
 			}
 		}
 	}
-	// end region constructor
 
-	// start region
-	// initilzing all the GUI components on the dialog box
-	private void initComponents() {
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Load files");
+	private void addComponents() {
+		GridBagConstraints gc = new GridBagConstraints();
 
-		createComponents();
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.insets = new Insets(0, 0, 10, 10);
+		gc.anchor = GridBagConstraints.LINE_START;
+		add(lblGeno, gc);
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addContainerGap()
-						.addGroup(layout.createParallelGroup(Alignment.TRAILING).addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(Alignment.LEADING).addComponent(lblGeno)
-										.addComponent(lblPheno).addComponent(lblResultDir))
-								.addGroup(
-										layout.createParallelGroup(Alignment.LEADING, false).addComponent(txtGenotype)
-												.addComponent(txtPhenotype, GroupLayout.DEFAULT_SIZE, 174,
-														Short.MAX_VALUE)
-												.addComponent(txtResultDir))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(layout.createParallelGroup(Alignment.LEADING).addComponent(btnGenotype)
-										.addComponent(btnPhenotype).addComponent(btnResultDir)))
-								.addGroup(layout.createSequentialGroup()
-										.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(btnCancle).addGap(159)))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnPhenoDB, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(32)
-						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(lblGeno)
-								.addComponent(txtGenotype, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnGenotype))
-						.addGap(18)
-						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(lblPheno)
-								.addComponent(txtPhenotype, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnPhenotype)
-								.addComponent(btnPhenoDB, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(lblResultDir)
-								.addComponent(txtResultDir, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnResultDir))
-						.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE).addGroup(layout
-								.createParallelGroup(Alignment.BASELINE).addComponent(btnOk).addComponent(btnCancle))
-						.addGap(30)));
-		getContentPane().setLayout(layout);
+		//gc.weightx = 1;
+		gc.gridx = 1;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(txtGenotype, gc);
 
-		pack();
+		gc.gridx = 2;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(btnGenotype, gc);
+
+		gc.gridx = 3;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(btnGenoDB, gc);
+
+		// Second line
+		gc.gridx = 0;
+		gc.gridy = 1;
+		// gc.anchor = GridBagConstraints.LINE_START;
+		add(lblPheno, gc);
+
+		gc.gridx = 1;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(txtPhenotype, gc);
+
+		gc.gridx = 2;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(btnPhenotype, gc);
+
+		gc.gridx = 3;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(btnPhenoDB, gc);
+
+		// Third line
+		gc.gridx = 0;
+		gc.gridy = 2;
+		// gc.anchor = GridBagConstraints.LINE_START;
+		add(lblResultDir, gc);
+
+		gc.gridx = 1;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(txtResultDir, gc);
+
+		//gc.weightx = 5;
+		gc.gridx = 2;
+		gc.gridwidth = 2;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		// gc.anchor = GridBagConstraints.NONE;
+		add(btnResultDir, gc);
+
+		// 4th line
+		gc.gridx = 2;
+		gc.gridy = 3;
+		gc.gridwidth = 1;
+		gc.insets = new Insets(20, 0, 10, 10);
+		gc.anchor = GridBagConstraints.LINE_END;
+		add(btnOk, gc);
+
+		gc.gridx = 3;
+		gc.anchor = GridBagConstraints.LINE_START;
+		add(btnCancle, gc);
 	}
-	// end region
 
 	private void createComponents() {
 		// -----------------------------Geno----------------------------------------
-		lblGeno = new JLabel("Select a genotype file");
+		lblGeno = new JLabel("Genotype file");
 		lblGeno.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
-		txtGenotype = new JTextField();
+		txtGenotype = new JTextField(20);
 		txtGenotype.setEditable(false);
 		txtGenotype.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
 		btnGenotype = new JButton("Browse");
 		btnGenotype.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
-		btnGenodB = new JButton("Connect");
-		btnGenodB.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
+		btnGenoDB = new JButton("Connect");
+		btnGenoDB.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
+		//btnGenoDB.setIcon(Util.createIcon("Download_database_Icon.gif"));
+		
+		JOptionPane.showMessageDialog(null, "bDONE WIRH CONSTRUCTOR");
+		
 		// ---------------------------------Pheno------------------------------------
-		lblPheno = new JLabel("Select a phenotype file *:");
+		lblPheno = new JLabel("Phenotype file");
 		lblPheno.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
-		txtPhenotype = new JTextField();
+		txtPhenotype = new JTextField(20);
 		txtPhenotype.setEditable(false);
 		txtPhenotype.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
@@ -414,23 +417,24 @@ public class OpenDial extends JDialog implements ActionListener {
 
 		btnPhenoDB = new JButton("Connect");
 		btnPhenoDB.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
-
+		//btnPhenoDB.setIcon(Util.createIcon("Download_database_Icon.gif"));
+		
 		// --------------------------------Location-----------------------------------
-		lblResultDir = new JLabel("Select a result directory *:");
+		lblResultDir = new JLabel("Result Directory");
 		lblResultDir.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
-		txtResultDir = new JTextField();
+		txtResultDir = new JTextField(20);
 		txtResultDir.setEditable(false);
 		txtResultDir.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
 		btnResultDir = new JButton("Browse");
 		btnResultDir.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 
-		btnOk = new JButton("Ok");
-		btnOk.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
+		btnOk = new JButton("   OK   ");
+		btnOk.setFont(new Font("DejaVu Sans", Font.BOLD, 15)); // NOI18N
 
 		btnCancle = new JButton("Cancel");
-		btnCancle.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
+		btnCancle.setFont(new Font("DejaVu Sans", Font.BOLD, 15)); // NOI18N
 
 	}
 }

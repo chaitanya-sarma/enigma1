@@ -620,9 +620,8 @@ public class GsMain extends SingleFrameApplication implements ActionListener {
         if (source == OpenItem || source == btnOpen) {
             try {
                 OpenDial dialog1 = new OpenDial(frame, true);
-                dialog1.setLocationRelativeTo(frame);
+                JOptionPane.showMessageDialog(null, "asdasdsdsd");
                 dialog1.setVisible(true);
-
                 if (!"null".equals(Constant.genotype)) {
                     String genopath = Constant.genotype;
                     String phenopath = Constant.phenotype;
