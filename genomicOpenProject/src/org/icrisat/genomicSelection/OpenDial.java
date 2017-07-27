@@ -183,14 +183,7 @@ public class OpenDial extends JDialog implements ActionListener {
         }
 
         if(source == btnBms){
-        	System.out.println("Connect to BMS");
-        //    BMSConnect bmsPanel = new BMSConnect(frame);
-        //    bmsPanel.setLocationRelativeTo(frame);
-        //    bmsPanel.setVisible(true);
-        	OpenDiall opd = new OpenDiall(frame, true);
-        	opd.setLocationRelativeTo(frame);
-        	opd.setVisible(true);
-        	System.out.println("Connected to BMS");
+        	JOptionPane.showMessageDialog(null, "Yellow");
         }
         
         if (source == btnPhenotype) { //if the phenotype button 
