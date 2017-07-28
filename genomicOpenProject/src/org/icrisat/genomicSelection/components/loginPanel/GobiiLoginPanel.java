@@ -14,7 +14,6 @@ public class GobiiLoginPanel extends LoginPanel {
 	public GobiiLoginPanel(Frame parent) {
 		super(parent, true, "Gobii Login");
 		this.parent = parent;
-		mainPanel = new GobiiMainPanel(parent);
 	}
 
 	@Override
@@ -22,5 +21,7 @@ public class GobiiLoginPanel extends LoginPanel {
 		validateUserFields();
 		JOptionPane.showMessageDialog(parent, "\tSuccessful login.\n \tWelcome to GOBII.");
 		this.setVisible(false);
+		mainPanel = new GobiiMainPanel(parent, true);
+		mainPanel.setVisible(true);
 	}
 }

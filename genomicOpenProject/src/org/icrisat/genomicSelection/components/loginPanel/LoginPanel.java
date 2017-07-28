@@ -104,9 +104,8 @@ public abstract class LoginPanel extends JDialog implements ActionListener{
 		userName = usernameField.getText().trim();
 		password = String.valueOf(passwordField.getPassword());
 		password = password.trim();
-		System.out.println(userName+"\t"+password);
 		if (userName == null || password == null || userName.isEmpty() || password.isEmpty()) {
-			JOptionPane.showMessageDialog(parent, "Please check the entered Username and Password.");
+			JOptionPane.showMessageDialog(parent, "Enter Username and Password.");
 		}
 	}
 }

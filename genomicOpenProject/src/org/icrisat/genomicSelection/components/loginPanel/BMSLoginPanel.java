@@ -47,6 +47,5 @@ public class BMSLoginPanel extends LoginPanel {
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(parent, "Please check the entered URL and try again.");
 		}
-		//System.out.println(auth.getToken());
 	}
 }

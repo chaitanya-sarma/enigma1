@@ -14,10 +14,7 @@ public class B4rLoginPanel extends LoginPanel {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Welcome to B4r Login");
 		String password = String.valueOf(passwordField.getPassword());
-		System.out.println("UserName :" + usernameField.getText() + "\t password  :" + password);
-
 	}
 
 }

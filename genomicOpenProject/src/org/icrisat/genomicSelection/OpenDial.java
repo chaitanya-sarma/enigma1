@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.icrisat.genomicSelection.connectToDB.GenotypeDB;
 import org.icrisat.genomicSelection.connectToDB.PhenotypeDB;
 
 /**
@@ -203,6 +204,10 @@ public class OpenDial extends JDialog implements ActionListener {
         	phenoDB.setVisible(true);
 		}
 
+		if(source == btnGenoDB){
+			GenotypeDB genoDB = new GenotypeDB(frame, true);
+        	genoDB.setVisible(true);
+		}
 		if (source == btnPhenotype) { // if the phenotype button
 			JFileChooser chooser;
 			// getting the browsePath if file already choosen
