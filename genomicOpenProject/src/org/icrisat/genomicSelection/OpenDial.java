@@ -24,7 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.icrisat.genomicSelection.util.Util;
+import org.icrisat.genomicSelection.connectToDB.PhenotypeDB;
 
 /**
  *
@@ -199,7 +199,8 @@ public class OpenDial extends JDialog implements ActionListener {
 		}
 
 		if (source == btnPhenoDB) {
-			JOptionPane.showMessageDialog(null, "Yellow or blue");
+			PhenotypeDB phenoDB = new PhenotypeDB(frame, true);
+        	phenoDB.setVisible(true);
 		}
 
 		if (source == btnPhenotype) { // if the phenotype button
@@ -319,47 +320,42 @@ public class OpenDial extends JDialog implements ActionListener {
 	private void addComponents() {
 		GridBagConstraints gc = new GridBagConstraints();
 
-		gc.gridx = 0;
+		//First Row
 		gc.gridy = 0;
+
+		gc.gridx = 0;
 		gc.insets = new Insets(0, 0, 10, 10);
 		gc.anchor = GridBagConstraints.LINE_START;
 		add(lblGeno, gc);
 
-		//gc.weightx = 1;
 		gc.gridx = 1;
-		// gc.anchor = GridBagConstraints.NONE;
 		add(txtGenotype, gc);
 
 		gc.gridx = 2;
-		// gc.anchor = GridBagConstraints.NONE;
 		add(btnGenotype, gc);
 
 		gc.gridx = 3;
-		// gc.anchor = GridBagConstraints.NONE;
 		add(btnGenoDB, gc);
 
-		// Second line
-		gc.gridx = 0;
+		// Second Row
 		gc.gridy = 1;
-		// gc.anchor = GridBagConstraints.LINE_START;
+		
+		gc.gridx = 0;
 		add(lblPheno, gc);
 
 		gc.gridx = 1;
-		// gc.anchor = GridBagConstraints.NONE;
 		add(txtPhenotype, gc);
 
 		gc.gridx = 2;
-		// gc.anchor = GridBagConstraints.NONE;
 		add(btnPhenotype, gc);
 
 		gc.gridx = 3;
-		// gc.anchor = GridBagConstraints.NONE;
 		add(btnPhenoDB, gc);
 
 		// Third line
-		gc.gridx = 0;
 		gc.gridy = 2;
-		// gc.anchor = GridBagConstraints.LINE_START;
+		
+		gc.gridx = 0;
 		add(lblResultDir, gc);
 
 		gc.gridx = 1;
@@ -401,8 +397,6 @@ public class OpenDial extends JDialog implements ActionListener {
 		btnGenoDB = new JButton("Connect");
 		btnGenoDB.setFont(new Font("DejaVu Sans", 0, 15)); // NOI18N
 		//btnGenoDB.setIcon(Util.createIcon("Download_database_Icon.gif"));
-		
-		JOptionPane.showMessageDialog(null, "bDONE WIRH CONSTRUCTOR");
 		
 		// ---------------------------------Pheno------------------------------------
 		lblPheno = new JLabel("Phenotype file");

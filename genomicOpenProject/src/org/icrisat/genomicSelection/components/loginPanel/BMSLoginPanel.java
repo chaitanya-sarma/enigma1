@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.ws.rs.core.Response;
 
-import org.apache.derby.tools.sysinfo;
 import org.icrisat.genomicSelection.util.AuthObject;
 import org.icrisat.genomicSelection.util.UtilWebService;
 

@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import org.icrisat.genomicSelection.util.Util;
 
 public abstract class LoginPanel extends JDialog implements ActionListener{
 
@@ -49,7 +48,7 @@ public abstract class LoginPanel extends JDialog implements ActionListener{
 	
 	private void initialize() {
 		usernameLbl = new JLabel("USERNAME");
-		usernameLbl.setIcon(Util.createIcon("users-icon.png"));
+	//	usernameLbl.setIcon(Util.createIcon("users-icon.png"));
 		usernameLbl.setFont(new Font("DejaVu Sans", Font.BOLD, 15));
 		usernameLbl.setHorizontalTextPosition(JLabel.LEFT);
 		usernameLbl.setIconTextGap(120);
@@ -57,7 +56,7 @@ public abstract class LoginPanel extends JDialog implements ActionListener{
 		usernameField = new JTextField(20);
 
 		passwordLbl = new JLabel("PASSWORD");
-		passwordLbl.setIcon(Util.createIcon("password.png"));
+	//	passwordLbl.setIcon(Util.createIcon("password.png"));
 		passwordLbl.setFont(new Font("DejaVu Sans", Font.BOLD, 15));
 		passwordLbl.setHorizontalTextPosition(JLabel.LEFT);
 		passwordLbl.setIconTextGap(110);
@@ -105,6 +104,7 @@ public abstract class LoginPanel extends JDialog implements ActionListener{
 		userName = usernameField.getText().trim();
 		password = String.valueOf(passwordField.getPassword());
 		password = password.trim();
+		System.out.println(userName+"\t"+password);
 		if (userName == null || password == null || userName.isEmpty() || password.isEmpty()) {
 			JOptionPane.showMessageDialog(parent, "Please check the entered Username and Password.");
 		}
