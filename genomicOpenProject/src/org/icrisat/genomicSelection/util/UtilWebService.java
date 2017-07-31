@@ -22,9 +22,9 @@ public class UtilWebService {
 		return response;
 	}
 	
-	public static Response makeCall(String uri) {
+/*	public static Response makeCall(String uri) {
 		webTarget = client.target(uri);
 		response = webTarget.request().get();
 		return response;
-	}
+	}*/
 }
