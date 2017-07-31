@@ -11,7 +11,12 @@
 package org.icrisat.genomicSelection;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
+import javax.swing.JDialog;
 
 /**
  *
@@ -96,4 +101,6 @@ public class Constant {
     static public List summaryResultList = new ArrayList();
     
     static public String cmdOpenProject=null;
-}
+    
+    static public List<JDialog> openDialogs = new ArrayList<JDialog>();
+    }

@@ -1,6 +1,8 @@
 package org.icrisat.genomicSelection.components.gobiiPanels;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -13,6 +15,7 @@ public class TablePanel extends JPanel {
 
 	private JTable table;
 	private AlleleMatricesTableModel tableModel;
+	// private
 
 	public TablePanel() {
 		tableModel = new AlleleMatricesTableModel();
@@ -27,5 +30,14 @@ public class TablePanel extends JPanel {
 
 	public void refresh() {
 		tableModel.fireTableDataChanged();
+	}
+
+	// Returns the selected row.
+	public AlleleMatrices getSelectedRow() {
+		return tableModel.getAlleleMatrix(table.getSelectedRow());
+	}
+
+	public AlleleMatrices getFirstRow() {
+		return tableModel.getAlleleMatrix(0);
 	}
 }

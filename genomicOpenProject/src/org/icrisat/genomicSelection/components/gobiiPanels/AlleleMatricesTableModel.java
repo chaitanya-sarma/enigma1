@@ -49,5 +49,7 @@ public class AlleleMatricesTableModel extends AbstractTableModel {
 			return alleleMatrix.getMatrixDbId();
 		}
 	}
-
+	public AlleleMatrices getAlleleMatrix(int rowNo){
+		return alleleMatrices.get(rowNo);
+	}
 }
